@@ -1,14 +1,11 @@
-name: Java CI with Maven
+name: Release
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  release:
+    types: [created]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -19,6 +16,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+          server-id: github
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cache Maven packages
         uses: actions/cache@v3
@@ -27,11 +27,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: dapla-team-keycloak-protocol-mapper
-          path: target/*.jar
+      - name: Publish JAR
+        run: mvn -B release:prepare release:perform -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
