@@ -27,6 +27,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - name: Set Git user
+        run: |
+          git config user.email "ghactions@ssb.no"
+          git config user.name "GitHub Actions"
+
       - name: Publish JAR
         run: mvn -B release:prepare release:perform -DskipTests
         env:
