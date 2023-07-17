@@ -1,0 +1,4 @@
+# Service Provider file that lists all protocol mappers which should be loaded by Keycloak.
+# The name of this file should not be changed.
+#
+no.ssb.dapla.keycloak.DaplaTeamsMapper
