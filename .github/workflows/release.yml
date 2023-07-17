@@ -39,9 +39,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Bump version to new SNAPSHOT
-        run: mvn versions:set -DnextSnapshot -DgenerateBackupPoms=false
-
       - name: Commit and push changes
         run: |
           git commit -a -m "Bump version to new SNAPSHOT"
