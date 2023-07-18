@@ -6,7 +6,7 @@ on:
       - release
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,8 +20,6 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           server-id: github
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cache Maven packages
         uses: actions/cache@v3
@@ -45,6 +43,8 @@ jobs:
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag: ${{ github.ref }}
 
       - name: Publish GitHub release
         uses: eregon/publish-release@v1
