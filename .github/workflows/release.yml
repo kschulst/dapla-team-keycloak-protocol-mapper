@@ -33,30 +33,36 @@ jobs:
           git config user.email "ghactions@ssb.no"
           git config user.name "GitHub Actions"
 
-      - name: Prepare release
+      - name: Perform release and publish jar
         id: prepare_release
         run: |
           mvn --batch-mode -DskipTests release:prepare
           TAG=$(git describe --abbrev=0 --tags)
           echo "::set-output name=tag::${TAG}"
-
-      - name: Perform release and publish jar
-        run: mvn --batch-mode -DskipTests release:perform
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          mvn --batch-mode -DskipTests release:perform
 
       - env:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
           echo $EVENT_CONTEXT
 
-      - name: Create release draft
+      - name: Create GitHub release draft
         uses: release-drafter/release-drafter@v5
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag: ${{ steps.prepare_release.outputs.tag }}
+
+      - name: Upload assets to GitHub release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./target/*.jar
+          asset_name: my-artifact.jar
+          asset_content_type: application/java-archive
 
       - name: Publish GitHub release
         uses: eregon/publish-release@v1
