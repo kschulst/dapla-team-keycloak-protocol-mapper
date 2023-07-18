@@ -3,7 +3,7 @@
 
     <groupId>no.ssb.dapla.keycloak</groupId>
     <artifactId>dapla-team-keycloak-protocol-mapper</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Dapla Team Protocol Mapper for Keycloak</name>
@@ -12,6 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <github.repository>kschulst/dapla-team-keycloak-protocol-mapper</github.repository>
 
         <!-- Dependencies -->
         <assertj.version>3.24.2</assertj.version>
@@ -106,16 +107,14 @@
     </build>
 
     <scm>
-        <developerConnection>scm:git:https://github.com/kschulst/dapla-team-keycloak-protocol-mapper.git</developerConnection>
-        <url>https://github.com/kschulst/dapla-team-keycloak-protocol-mapper</url>
-        <tag>v0.0.3</tag>
+        <developerConnection>scm:git:https://github.com/${github.repository}.git</developerConnection>
+        <url>https://github.com/${github.repository}</url>
     </scm>
 
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>GitHub</name>
-            <url>https://maven.pkg.github.com/kschulst/dapla-team-keycloak-protocol-mapper</url>
+            <url>https://maven.pkg.github.com/${github.repository}</url>
         </repository>
     </distributionManagement>
 
