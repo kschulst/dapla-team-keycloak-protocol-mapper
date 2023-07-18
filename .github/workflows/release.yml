@@ -50,11 +50,12 @@ jobs:
         run: |
           echo $EVENT_CONTEXT
 
-      - name: Update release draft
+      - name: Create release draft
         uses: release-drafter/release-drafter@v5
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
           tag_name: ${{ steps.prepare_release.outputs.tag }}
 
       - name: Publish GitHub release
