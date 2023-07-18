@@ -44,6 +44,7 @@ jobs:
           TAG=$(git describe --abbrev=0 --tags)
           echo "::set-output name=tag::${TAG}"
           mvn --batch-mode -DskipTests release:perform
+          ls -alR
 
       - env:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
