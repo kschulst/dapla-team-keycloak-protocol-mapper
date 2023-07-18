@@ -3,7 +3,7 @@
 
     <groupId>no.ssb.dapla.keycloak</groupId>
     <artifactId>dapla-team-keycloak-protocol-mapper</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.4</version>
     <packaging>jar</packaging>
 
     <name>Dapla Team Protocol Mapper for Keycloak</name>
@@ -109,7 +109,8 @@
     <scm>
         <developerConnection>scm:git:https://github.com/${github.repository}.git</developerConnection>
         <url>https://github.com/${github.repository}</url>
-    </scm>
+      <tag>v0.0.4</tag>
+  </scm>
 
     <distributionManagement>
         <repository>
