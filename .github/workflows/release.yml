@@ -40,13 +40,12 @@ jobs:
         run: |
           mvn --batch-mode -DskipTests release:prepare
           TAG=$(git describe --abbrev=0 --tags)
-          echo "::set-output name=tag::${TAG}"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
           mvn --batch-mode -DskipTests release:perform
-          ls -lR
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-          echo "::set-output name=artifact_id::${ARTIFACT_ID}"
+          echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_OUTPUT
           ARTIFACT_PATH=$(realpath ./target/*.jar)
-          echo "::set-output name=artifact_path::${ARTIFACT_PATH}"
+          echo "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
 
       - env:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
