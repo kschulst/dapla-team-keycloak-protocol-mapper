@@ -38,6 +38,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+          echo "::set-output name=artifact_id::${ARTIFACT_ID}"
           mvn --batch-mode -DskipTests release:prepare
           TAG=$(git describe --abbrev=0 --tags)
           echo "::set-output name=tag::${TAG}"
@@ -61,10 +63,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_github_release.outputs.upload_url }}
-          asset_path: ./target/*.jar
-          asset_name: my-artifact.jar
+          asset_path: ${{ steps.release_jar.outputs.artifact_id }}/target/*.jar
+          asset_name: ${{ steps.release_jar.outputs.artifact_id }}.jar
           asset_content_type: application/java-archive
+          upload_url: ${{ steps.create_github_release.outputs.upload_url }}
 
       - name: Publish GitHub release
         uses: eregon/publish-release@v1
