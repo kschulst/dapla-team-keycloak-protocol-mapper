@@ -55,7 +55,7 @@ jobs:
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.prepare_release.outputs.tag }}
+          tag_name: ${{ steps.prepare_release.outputs.tag }}
 
       - name: Publish GitHub release
         uses: eregon/publish-release@v1
