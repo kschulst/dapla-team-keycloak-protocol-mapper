@@ -1,13 +1,12 @@
 .PHONY: default
 default: | help
 
-.PHONY: build
+.PHONY: build ## Build the project
 build: ## Build the project and install to your local maven repo
-ifndef skipTest
 	mvn clean install
-else
+
+.PHONY: build-skiptests ## Build the project (skipping tests)
 	mvn clean install -Dmaven.test.skip=true
-endif
 
 .PHONY: test
 test: ## Run tests
