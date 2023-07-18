@@ -33,18 +33,29 @@ jobs:
           git config user.email "ghactions@ssb.no"
           git config user.name "GitHub Actions"
 
-      - name: Publish JAR
-        run: mvn -B release:prepare release:perform -DskipTests
+      - name: Prepare release
+        id: prepare_release
+        run: |
+          mvn --batch-mode -DskipTests release:prepare
+          TAG=$(git describe --abbrev=0 --tags)
+          echo "::set-output name=tag::${TAG}"
+
+      - name: Perform release and publish jar
+        run: mvn ---batch-mode -DskipTests release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - env:
+          EVENT_CONTEXT: ${{ toJSON(github.event) }}
+        run: |
+          echo $EVENT_CONTEXT
 
       - name: Update release draft
         uses: release-drafter/release-drafter@v5
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag: ${{ github.ref }}
+          tag: ${{ steps.prepare_release.outputs.tag }}
 
       - name: Publish GitHub release
         uses: eregon/publish-release@v1

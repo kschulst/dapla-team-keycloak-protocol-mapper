@@ -18,7 +18,7 @@ release-dryrun: ## Simulate a release in order to detect any issues
 	mvn release:prepare release:perform -Darguments="-Dmaven.deploy.skip=true" -DdryRun=true
 
 .PHONY: release
-release: ## Release a new version.
+release: ## Release a new version
 	git push origin main:release
 
 .PHONY: help
