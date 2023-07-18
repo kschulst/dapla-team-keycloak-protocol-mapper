@@ -38,15 +38,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ls -lR
-          ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-          echo "::set-output name=artifact_id::${ARTIFACT_ID}"
-          ARTIFACT_PATH=$(realpath target/*.jar)
-          echo "::set-output name=artifact_path::${ARTIFACT_PATH}"
           mvn --batch-mode -DskipTests release:prepare
           TAG=$(git describe --abbrev=0 --tags)
           echo "::set-output name=tag::${TAG}"
           mvn --batch-mode -DskipTests release:perform
+          ls -lR
+          ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+          echo "::set-output name=artifact_id::${ARTIFACT_ID}"
+          ARTIFACT_PATH=$(realpath ./target/*.jar)
+          echo "::set-output name=artifact_path::${ARTIFACT_PATH}"
 
       - env:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
