@@ -34,7 +34,9 @@ jobs:
           git config user.name "GitHub Actions"
 
       - name: Perform release and publish jar
-        id: prepare_release
+        id: release_jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mvn --batch-mode -DskipTests release:prepare
           TAG=$(git describe --abbrev=0 --tags)
@@ -48,18 +50,18 @@ jobs:
 
       - name: Create GitHub release draft
         uses: release-drafter/release-drafter@v5
-        id: create_release
+        id: create_github_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag: ${{ steps.prepare_release.outputs.tag }}
+          tag: ${{ steps.release_jar.outputs.tag }}
 
       - name: Upload assets to GitHub release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_github_release.outputs.upload_url }}
           asset_path: ./target/*.jar
           asset_name: my-artifact.jar
           asset_content_type: application/java-archive
@@ -69,4 +71,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          release_id: ${{ steps.create_release.outputs.id }}
+          release_id: ${{ steps.create_github_release.outputs.id }}
