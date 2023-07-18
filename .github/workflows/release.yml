@@ -41,7 +41,7 @@ jobs:
           echo "::set-output name=tag::${TAG}"
 
       - name: Perform release and publish jar
-        run: mvn ---batch-mode -DskipTests release:perform
+        run: mvn --batch-mode -DskipTests release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
