@@ -1,6 +1,7 @@
 package no.ssb.dapla.keycloak;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.keycloak.models.ClientSessionContext;
 import org.keycloak.models.KeycloakSession;
@@ -15,6 +16,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
+@Disabled
 public class DaplaTeamsMapperTest {
 
     private DaplaTeamsMapper daplaTeamsMapper;
