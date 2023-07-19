@@ -1,4 +1,4 @@
-package no.ssb.dapla.keycloak.teams;
+package no.ssb.dapla.keycloak.mapper.teams;
 
 import no.ssb.dapla.keycloak.mapper.teams.DaplaTeamsMapper;
 import org.junit.jupiter.api.BeforeEach;
