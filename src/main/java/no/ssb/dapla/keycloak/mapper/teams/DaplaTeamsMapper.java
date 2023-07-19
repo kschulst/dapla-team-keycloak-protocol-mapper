@@ -67,6 +67,10 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
         configProperties.add(property);
     }
 
+    public DaplaTeamsMapper() {
+        log.info("DaplaTeamsMapper version " + BuildInfo.INSTANCE.getVersionAndBuildTimestamp());
+    }
+
     @Override
     public String getDisplayCategory() {
         return "Token mapper";

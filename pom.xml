@@ -23,6 +23,7 @@
         <junit.version>5.9.2</junit.version>
 
         <!-- Plugins -->
+        <inject-maven-plugin.version>1.3</inject-maven-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
         <maven-shade-plugin.version>3.3.0</maven-shade-plugin.version>
@@ -143,6 +144,25 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>de.m3y.maven</groupId>
+                <artifactId>inject-maven-plugin</artifactId>
+                <version>${inject-maven-plugin.version}</version>
+                <configuration>
+                    <injections>
+                        <injection>
+                            <value>${project.version}</value>
+                            <pointCuts>
+                                <pointCut>no.ssb.dapla.keycloak.BuildInfo.getVersion</pointCut>
+                            </pointCuts>
+                        </injection>
+                        <injection>
+                            <value>${maven.build.timestamp}</value>
+                            <pointCut>no.ssb.dapla.keycloak.BuildInfo.getBuildTimestamp</pointCut>
+                        </injection>
+                    </injections>
+                </configuration>
             </plugin>
         </plugins>
     </build>
