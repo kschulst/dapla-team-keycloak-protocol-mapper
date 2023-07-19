@@ -6,6 +6,7 @@ import java.util.List;
 
 public class DummyDaplaTeamApiService implements DaplaTeamApiService {
     private static final Logger log = Logger.getLogger(DummyDaplaTeamApiService.class);
+    public static final String NAME = "Dummy";
 
     public DummyDaplaTeamApiService() {
         log.info("Using DummyDaplaTeamApiService");
