@@ -28,8 +28,12 @@ public class MockyDaplaTeamApiService implements DaplaTeamApiService {
         Request request = new Request.Builder()
                 .url(teamApiUrl.resolve(TEAMS_ENDPOINT).toString())
                 .build();
+        log.debug("Request: " + request);
         try (Response response = httpClient.newCall(request).execute()) {
+            log.debug("Response: " + response);
+
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            log.debug("Response body: " + response.body());
 
             TeamsWrapper res = Json.adapter(TeamsWrapper.class).fromJson(response.body().source());
             return res.teams;
