@@ -82,7 +82,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
 
     @Override
     public String getDisplayType() {
-        return "Dapla Team API mapper";
+        return "Dapla Team API mapper" + " (v" + BuildInfo.INSTANCE.getVersion() + ")";
     }
 
     @Override
