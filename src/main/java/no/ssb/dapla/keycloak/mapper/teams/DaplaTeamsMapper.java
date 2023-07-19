@@ -109,8 +109,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
 
         log.info("Retrieve Dapla teams");
         DaplaTeamApiService teamApiService = teamApiService(mappingModel);
-        //String teamsJson = Json.from(teamApiService.getTeams());
-        String teamsJson = "[\"demo-enhjoern-a\",\"demo-enhjoern-c\"]";
+        String teamsJson = Json.from(teamApiService.getTeams());
         OIDCAttributeMapperHelper.mapClaim(token, mappingModel, teamsJson);
     }
 
