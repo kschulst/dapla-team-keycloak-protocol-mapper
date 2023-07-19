@@ -51,7 +51,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
         property.setLabel("Dapla Team API Impl");
         property.setType(ProviderConfigProperty.LIST_TYPE);
         property.setOptions(List.of(MockyDaplaTeamApiService.NAME, DummyDaplaTeamApiService.NAME));
-        property.setHelpText("Should the mapper use an offline, dummy replacement instead of a real API invocation?");
+        property.setHelpText("The API implementation. Select Mocky to use an online, mocked API. Select Dummy to use an offline, dummy replacement instead of a real API invocation.");
         property.setDefaultValue(MockyDaplaTeamApiService.NAME);
         configProperties.add(property);
 
@@ -69,12 +69,12 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
 
     @Override
     public String getDisplayCategory() {
-        return "Dapla teams token mapper";
+        return "Token mapper";
     }
 
     @Override
     public String getDisplayType() {
-        return "Dapla Teams Mapper";
+        return "Dapla Team API mapper";
     }
 
     @Override
@@ -101,7 +101,8 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
 
         log.info("Retrieve Dapla teams");
         DaplaTeamApiService teamApiService = teamApiService(mappingModel);
-        String teamsJson = Json.from(teamApiService.getTeams());
+        //String teamsJson = Json.from(teamApiService.getTeams());
+        String teamsJson = "[\"demo-enhjoern-a\",\"demo-enhjoern-c\"]";
         OIDCAttributeMapperHelper.mapClaim(token, mappingModel, teamsJson);
     }
 
