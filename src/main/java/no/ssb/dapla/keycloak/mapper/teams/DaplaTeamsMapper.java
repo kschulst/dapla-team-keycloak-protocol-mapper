@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * Keycloak protocol mapper that looks up a user's associated Dapla teams and populates
- * a JWT token claim.
+ * DaplaTeamsMapper is a Keycloak protocol mapper that looks up a user's associated
+ * Dapla teams and populates a JWT token claim.
  */
 public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDCAccessTokenMapper, OIDCIDTokenMapper, UserInfoTokenMapper {
 
