@@ -9,9 +9,8 @@ Restart and Keycloak will discover and install the protocol mappers automaticall
 
 ## Terraform
 
-You can configure the protocol mappers with Terraform. The following examples
+You can use Terraform to configure a client to use the protocol mappers. The following examples
 use [mrparkers Keycloak provider](https://registry.terraform.io/providers/mrparkers/keycloak).
-
 Given a realm and client:
 
 ```terraform
@@ -26,7 +25,7 @@ resource "keycloak_openid_client" "some_client" {
 }
 ```
 
-### Dapla Teams Mapper
+#### Dapla Teams Mapper
 
 ```terraform
 resource "keycloak_generic_protocol_mapper" "dapla_teams_mapper" {
