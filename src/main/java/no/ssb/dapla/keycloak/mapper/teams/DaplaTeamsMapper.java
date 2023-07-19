@@ -19,10 +19,12 @@ import java.util.List;
  */
 public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDCAccessTokenMapper, OIDCIDTokenMapper, UserInfoTokenMapper {
 
-    private static final Logger log = Logger.getLogger(DaplaTeamsMapper.class);
+    public static class ConfigKey {
+        public static final String API_URL = "dapla-team-api.url";
+        public static final String API_IMPL = "dapla-team-api.impl";
+    }
 
-    public static final String API_URL_CONFIG = "dapla-team-api.url";
-    public static final String API_IMPL_CONFIG = "dapla-team-api.impl";
+    private static final Logger log = Logger.getLogger(DaplaTeamsMapper.class);
 
     /*
      * A config which keycloak uses to display a generic dialog to configure the token.
@@ -33,7 +35,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
      * The ID of the token mapper. Is public, because we need this id in our data-setup project to
      * configure the protocol mapper in keycloak.
      */
-    public static final String PROVIDER_ID = "dapla-teams-mapper";
+    public static final String PROVIDER_ID = "oidc-dapla-teams-mapper";
 
     static {
         ProviderConfigProperty property;
@@ -51,7 +53,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
 
         // Let the user decide if we should use a dummy service instead of a real API request for Dapla Team API
         property = new ProviderConfigProperty();
-        property.setName(API_IMPL_CONFIG);
+        property.setName(ConfigKey.API_IMPL);
         property.setLabel("Dapla Team API Impl");
         property.setType(ProviderConfigProperty.LIST_TYPE);
         property.setOptions(List.of(MockyDaplaTeamApiService.NAME, DummyDaplaTeamApiService.NAME));
@@ -62,7 +64,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
         // Let the user specify the URL for Dapla Team API
         property = new ProviderConfigProperty();
         property = new ProviderConfigProperty();
-        property.setName(API_URL_CONFIG);
+        property.setName(ConfigKey.API_URL);
         property.setLabel("Dapla Team API URL");
         property.setType(ProviderConfigProperty.STRING_TYPE);
         property.setHelpText("Specify the root URL for the Dapla Team API. Not used if 'Dapla Team API Impl' is Dummy.");
@@ -114,11 +116,11 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
     }
 
     DaplaTeamApiService teamApiService(ProtocolMapperModel mappingModel) {
-        String impl = mappingModel.getConfig().get(API_IMPL_CONFIG);
+        String impl = mappingModel.getConfig().get(ConfigKey.API_IMPL);
         log.info("Using " + impl + " Dapla Team API implementation");
 
         if (MockyDaplaTeamApiService.NAME.equals(impl)) {
-            String apiUrl = mappingModel.getConfig().get(API_URL_CONFIG);
+            String apiUrl = mappingModel.getConfig().get(ConfigKey.API_IMPL);
             log.info("Dapla Team API url: " + apiUrl);
             return new MockyDaplaTeamApiService(apiUrl);
         }
