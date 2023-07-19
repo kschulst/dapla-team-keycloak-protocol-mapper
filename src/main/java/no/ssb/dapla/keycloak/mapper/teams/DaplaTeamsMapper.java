@@ -41,9 +41,13 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
         // Let the user define under which claim name (key) the protocol mapper writes its value.
         OIDCAttributeMapperHelper.addTokenClaimNameConfig(configProperties);
 
+        // Let the user specify the JSON type that value should be mapped to. Must be "JSON".
+        OIDCAttributeMapperHelper.addJsonTypeConfig(configProperties);
+
         // Let the user define for which tokens the protocol mapper is executed (access token,
         // id token, user info).
         OIDCAttributeMapperHelper.addIncludeInTokensConfig(configProperties, DaplaTeamsMapper.class);
+
 
         // Let the user decide if we should use a dummy service instead of a real API request for Dapla Team API
         property = new ProviderConfigProperty();
@@ -61,7 +65,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
         property.setName(API_URL_CONFIG);
         property.setLabel("Dapla Team API URL");
         property.setType(ProviderConfigProperty.STRING_TYPE);
-        property.setHelpText("Specify the root URL for the Dapla Team API. Not used if 'Dummy Dapla Team API' is enabled.`");
+        property.setHelpText("Specify the root URL for the Dapla Team API. Not used if 'Dapla Team API Impl' is Dummy.");
         //property.setDefaultValue("https://team-api.dapla.ssb.no");
         property.setDefaultValue("https://run.mocky.io");
         configProperties.add(property);
