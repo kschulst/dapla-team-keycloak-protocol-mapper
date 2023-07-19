@@ -120,7 +120,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
         log.info("Using " + impl + " Dapla Team API implementation");
 
         if (MockyDaplaTeamApiService.NAME.equals(impl)) {
-            String apiUrl = mappingModel.getConfig().get(ConfigKey.API_IMPL);
+            String apiUrl = mappingModel.getConfig().get(ConfigKey.API_URL);
             log.info("Dapla Team API url: " + apiUrl);
             return new MockyDaplaTeamApiService(apiUrl);
         }
