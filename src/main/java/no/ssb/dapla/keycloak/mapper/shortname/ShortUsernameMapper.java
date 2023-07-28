@@ -97,8 +97,9 @@ public class ShortUsernameMapper extends AbstractOIDCProtocolMapper implements O
                             final KeycloakSession keycloakSession,
                             final ClientSessionContext clientSessionCtx) {
         log.info("ShortUsernameMapper, token:" + Json.prettyFrom(token));
+        log.info("ShortUsernameMapper, user session:" + userSession.getUser());
 
-        String email = token.getEmail();
+        String email = userSession.getUser().getEmail();
         log.info("Map email " + email + " to shortname");
         if (email == null || email.trim().isEmpty()) {
             log.info("Email was null or empty. Unable to deduce shortname.");
