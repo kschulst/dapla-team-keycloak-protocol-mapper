@@ -1,6 +1,5 @@
 package no.ssb.dapla.keycloak.mapper.teams;
 
-import no.ssb.dapla.keycloak.mapper.teams.DaplaTeamsMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
