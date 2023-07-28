@@ -3,6 +3,7 @@ package no.ssb.dapla.keycloak.mapper.shortname;
 import no.ssb.dapla.keycloak.*;
 import no.ssb.dapla.keycloak.mapper.teams.DaplaTeamsMapper;
 import no.ssb.dapla.keycloak.utils.Email;
+import no.ssb.dapla.keycloak.utils.Json;
 import org.jboss.logging.Logger;
 import org.keycloak.models.ClientSessionContext;
 import org.keycloak.models.KeycloakSession;
@@ -95,6 +96,8 @@ public class ShortUsernameMapper extends AbstractOIDCProtocolMapper implements O
                             final UserSessionModel userSession,
                             final KeycloakSession keycloakSession,
                             final ClientSessionContext clientSessionCtx) {
+        log.info("ShortUsernameMapper, token:" + Json.prettyFrom(token));
+
         String email = token.getEmail();
         log.info("Map email " + email + " to shortname");
         if (email == null || email.trim().isEmpty()) {
