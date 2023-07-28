@@ -1,6 +1,7 @@
 package no.ssb.dapla.keycloak.mapper.teams;
 
 import no.ssb.dapla.keycloak.*;
+import no.ssb.dapla.keycloak.utils.Json;
 import org.jboss.logging.Logger;
 import org.keycloak.models.ClientSessionContext;
 import org.keycloak.models.KeycloakSession;
@@ -50,7 +51,6 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
         // id token, user info).
         OIDCAttributeMapperHelper.addIncludeInTokensConfig(configProperties, DaplaTeamsMapper.class);
 
-
         // Let the user decide if we should use a dummy service instead of a real API request for Dapla Team API
         property = new ProviderConfigProperty();
         property.setName(ConfigKey.API_IMPL);
@@ -74,7 +74,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
     }
 
     public DaplaTeamsMapper() {
-        log.info("DaplaTeamsMapper version " + BuildInfo.INSTANCE.getVersionAndBuildTimestamp());
+        log.debug("DaplaTeamsMapper version " + BuildInfo.INSTANCE.getVersionAndBuildTimestamp());
     }
 
     @Override
@@ -109,7 +109,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
                             final KeycloakSession keycloakSession,
                             final ClientSessionContext clientSessionCtx) {
 
-        log.info("Retrieve Dapla teams");
+        log.debug("Retrieve Dapla teams");
         DaplaTeamApiService teamApiService = teamApiService(mappingModel);
         String teamsJson = Json.from(teamApiService.getTeams());
         OIDCAttributeMapperHelper.mapClaim(token, mappingModel, teamsJson);
@@ -117,11 +117,11 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
 
     DaplaTeamApiService teamApiService(ProtocolMapperModel mappingModel) {
         String impl = mappingModel.getConfig().get(ConfigKey.API_IMPL);
-        log.info("Using " + impl + " Dapla Team API implementation");
+        log.debug("Using " + impl + " Dapla Team API implementation");
 
         if (MockyDaplaTeamApiService.NAME.equals(impl)) {
             String apiUrl = mappingModel.getConfig().get(ConfigKey.API_URL);
-            log.info("Dapla Team API url: " + apiUrl);
+            log.debug("Dapla Team API url: " + apiUrl);
             return new MockyDaplaTeamApiService(apiUrl);
         }
         else if (DummyDaplaTeamApiService.NAME.equals(impl)) {
