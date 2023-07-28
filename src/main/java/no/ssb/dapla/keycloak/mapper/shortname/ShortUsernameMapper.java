@@ -96,26 +96,41 @@ public class ShortUsernameMapper extends AbstractOIDCProtocolMapper implements O
                             final KeycloakSession keycloakSession,
                             final ClientSessionContext clientSessionCtx) {
         String email = token.getEmail();
-        log.debug("Map email " + email + " to shortname");
+        log.info("Map email " + email + " to shortname");
         if (email == null || email.trim().isEmpty()) {
-            log.debug("Email was null or empty. Unable to deduce shortname.");
+            log.info("Email was null or empty. Unable to deduce shortname.");
             return;
         }
 
-        String shortUsername = emailToShortUsername(email);
+        boolean useDomainAsPrefix = Boolean.parseBoolean(mappingModel.getConfig().get(ConfigKey.USE_DOMAIN_AS_PREFIX));
+
+        String shortUsername = emailToShortUsername(email, useDomainAsPrefix);
+        log.info("Short username is " + shortUsername);
         OIDCAttributeMapperHelper.mapClaim(token, mappingModel, shortUsername);
-   }
+    }
 
-   static String emailToShortUsername(String email) {
-       String localPart = Email.localPart(email).orElse("");
-       String domainPart = Email.domainPartWithoutTld(email).orElse("");
-       if (localPart.isEmpty() || domainPart.isEmpty()) {
-           return null;
-       }
+    static String emailToShortUsername(String email, boolean useDomainAsPrefix) {
+        final String shortUsername;
 
-       return String.format("%s-%s", domainPart, localPart)
-               .replaceAll("[^A-Za-z0-9]", "-")
-               .toLowerCase();
-   }
+        String localPart = Email.localPart(email).orElse("");
+        if (localPart.isEmpty()) {
+            return null;
+        }
+
+        if (useDomainAsPrefix) {
+            String domainPart = Email.domainPartWithoutTld(email).orElse("");
+            if (domainPart.isEmpty()) {
+                return null;
+            }
+            return asRfc1123(domainPart + "-" + localPart);
+        }
+        else {
+            return asRfc1123(localPart);
+        }
+    }
+
+    private static String asRfc1123(String s) {
+        return s.replaceAll("[^A-Za-z0-9]", "-").toLowerCase();
+    }
 
 }
