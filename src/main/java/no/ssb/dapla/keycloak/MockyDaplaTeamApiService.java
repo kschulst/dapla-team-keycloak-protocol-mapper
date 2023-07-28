@@ -21,7 +21,7 @@ public class MockyDaplaTeamApiService implements DaplaTeamApiService {
 
     public MockyDaplaTeamApiService(String teamApiUrl) {
         this.teamApiUrl = URI.create(teamApiUrl);
-        log.info("Using MockyDaplaTeamApiService (" + teamApiUrl + ")");
+        log.debug("Using MockyDaplaTeamApiService (" + teamApiUrl + ")");
     }
 
     @Override

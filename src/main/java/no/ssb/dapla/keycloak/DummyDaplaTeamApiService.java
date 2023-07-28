@@ -9,7 +9,7 @@ public class DummyDaplaTeamApiService implements DaplaTeamApiService {
     public static final String NAME = "Dummy";
 
     public DummyDaplaTeamApiService() {
-        log.info("Using DummyDaplaTeamApiService");
+        log.debug("Using DummyDaplaTeamApiService");
     }
 
     @Override
