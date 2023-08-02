@@ -44,6 +44,16 @@ public abstract class AbstractTokenMapper extends AbstractOIDCProtocolMapper
         // id token, user info).
         OIDCAttributeMapperHelper.addIncludeInTokensConfig(configProperties, getClass());
 
+        this.configProperties.add(configProperty()
+                .name(ConfigPropertyKey.VERBOSE_LOGGING)
+                .label("Verbose logging")
+                .helpText("""
+                        Enable this to include extra verbose logging in the Keycloak application logs.
+                        This can be used for pinpointing problems without having to adjust the Keycloak logging config.""")
+                .type(ConfigPropertyType.BOOLEAN)
+                .defaultValue(Boolean.FALSE)
+                .build());
+
         this.configProperties.addAll(additionalConfigProperties);
     }
 
