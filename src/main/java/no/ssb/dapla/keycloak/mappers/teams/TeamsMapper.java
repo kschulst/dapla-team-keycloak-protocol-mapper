@@ -18,7 +18,7 @@ import org.keycloak.representations.IDToken;
 
 @AutoService(ProtocolMapper.class)
 public class TeamsMapper extends AbstractTokenMapper {
-    public static final String PROVIDER_ID = "oidc-dapla-teams-mapper2";
+    public static final String PROVIDER_ID = "oidc-dapla-teams-mapper";
 
     public static class ConfigPropertyKey {
         public static final String API_URL = "dapla.teams.team-api-url";
