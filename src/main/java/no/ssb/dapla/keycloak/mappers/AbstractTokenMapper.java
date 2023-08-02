@@ -114,7 +114,7 @@ public abstract class AbstractTokenMapper extends AbstractOIDCProtocolMapper
         String claimName = mappingModel.getConfig().get(OIDCAttributeMapperHelper.TOKEN_CLAIM_NAME);
         debugLog(verbose, "Map claim " + claimName);
         debugLog(verbose, "Token: " + Json.prettyFrom(token));
-        debugLog(verbose, "User session: " + Json.prettyFrom(userSession));
+        //debugLog(verbose, "User session: " + Json.prettyFrom(userSession));
 
         try {
             Object claimValue = mapToClaim(token, mappingModel, userSession, keycloakSession, clientSessionCtx);
