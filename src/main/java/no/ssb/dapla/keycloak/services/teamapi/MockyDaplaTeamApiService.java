@@ -1,5 +1,6 @@
-package no.ssb.dapla.keycloak;
+package no.ssb.dapla.keycloak.services.teamapi;
 
+import no.ssb.dapla.keycloak.DaplaKeycloakException;
 import no.ssb.dapla.keycloak.utils.Json;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

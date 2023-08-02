@@ -1,5 +1,6 @@
 package no.ssb.dapla.keycloak;
 
+import no.ssb.dapla.keycloak.services.teamapi.MockyDaplaTeamApiService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

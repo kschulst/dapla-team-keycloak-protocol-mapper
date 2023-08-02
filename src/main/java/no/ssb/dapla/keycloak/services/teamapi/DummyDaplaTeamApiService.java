@@ -1,4 +1,4 @@
-package no.ssb.dapla.keycloak;
+package no.ssb.dapla.keycloak.services.teamapi;
 
 import org.jboss.logging.Logger;
 

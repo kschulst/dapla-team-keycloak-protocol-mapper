@@ -1,12 +1,18 @@
-package no.ssb.dapla.keycloak.mapper.teams;
+package no.ssb.dapla.keycloak.mappers.teams;
 
-import no.ssb.dapla.keycloak.*;
+import com.google.auto.service.AutoService;
+import no.ssb.dapla.keycloak.BuildInfo;
+import no.ssb.dapla.keycloak.DaplaKeycloakException;
+import no.ssb.dapla.keycloak.services.teamapi.DaplaTeamApiService;
+import no.ssb.dapla.keycloak.services.teamapi.DummyDaplaTeamApiService;
+import no.ssb.dapla.keycloak.services.teamapi.MockyDaplaTeamApiService;
 import no.ssb.dapla.keycloak.utils.Json;
 import org.jboss.logging.Logger;
 import org.keycloak.models.ClientSessionContext;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.ProtocolMapperModel;
 import org.keycloak.models.UserSessionModel;
+import org.keycloak.protocol.ProtocolMapper;
 import org.keycloak.protocol.oidc.mappers.*;
 import org.keycloak.provider.ProviderConfigProperty;
 import org.keycloak.representations.IDToken;
@@ -18,6 +24,7 @@ import java.util.List;
  * DaplaTeamsMapper is a Keycloak protocol mapper that looks up a user's associated
  * Dapla teams and populates a JWT token claim.
  */
+@AutoService(ProtocolMapper.class)
 public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDCAccessTokenMapper, OIDCIDTokenMapper, UserInfoTokenMapper {
 
     public static class ConfigKey {
@@ -62,7 +69,6 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
         configProperties.add(property);
 
         // Let the user specify the URL for Dapla Team API
-        property = new ProviderConfigProperty();
         property = new ProviderConfigProperty();
         property.setName(ConfigKey.API_URL);
         property.setLabel("Dapla Team API URL");
