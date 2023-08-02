@@ -25,14 +25,14 @@ import java.util.List;
  * Dapla teams and populates a JWT token claim.
  */
 @AutoService(ProtocolMapper.class)
-public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDCAccessTokenMapper, OIDCIDTokenMapper, UserInfoTokenMapper {
+public class OldDaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDCAccessTokenMapper, OIDCIDTokenMapper, UserInfoTokenMapper {
 
     public static class ConfigKey {
         public static final String API_URL = "dapla-team-api.url";
         public static final String API_IMPL = "dapla-team-api.impl";
     }
 
-    private static final Logger log = Logger.getLogger(DaplaTeamsMapper.class);
+    private static final Logger log = Logger.getLogger(OldDaplaTeamsMapper.class);
 
     /*
      * A config which keycloak uses to display a generic dialog to configure the token.
@@ -56,7 +56,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
 
         // Let the user define for which tokens the protocol mapper is executed (access token,
         // id token, user info).
-        OIDCAttributeMapperHelper.addIncludeInTokensConfig(configProperties, DaplaTeamsMapper.class);
+        OIDCAttributeMapperHelper.addIncludeInTokensConfig(configProperties, OldDaplaTeamsMapper.class);
 
         // Let the user decide if we should use a dummy service instead of a real API request for Dapla Team API
         property = new ProviderConfigProperty();
@@ -79,7 +79,7 @@ public class DaplaTeamsMapper extends AbstractOIDCProtocolMapper implements OIDC
         configProperties.add(property);
     }
 
-    public DaplaTeamsMapper() {
+    public OldDaplaTeamsMapper() {
         log.debug("DaplaTeamsMapper version " + BuildInfo.INSTANCE.getVersionAndBuildTimestamp());
     }
 

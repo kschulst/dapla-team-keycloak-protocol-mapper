@@ -22,11 +22,11 @@ public class ShortUsernameMapperTest {
     @Mock
     ProtocolMapperModel protocolMapperModel;
 
-    ShortUsernameMapper2 mapper;
+    ShortUsernameMapper mapper;
 
     @BeforeEach
     void setUp() {
-        mapper = new ShortUsernameMapper2();
+        mapper = new ShortUsernameMapper();
     }
 
     @Test
@@ -86,7 +86,7 @@ public class ShortUsernameMapperTest {
     @Test
     void testUseDomainAsPrefix() {
         Map<String, String> config = new HashMap<>();
-        config.put(ShortUsernameMapper2.ConfigPropertyKey.USE_DOMAIN_AS_PREFIX, "true");
+        config.put(ShortUsernameMapper.ConfigPropertyKey.USE_DOMAIN_AS_PREFIX, "true");
         when(protocolMapperModel.getConfig()).thenReturn(config);
 
         boolean result = mapper.useDomainAsPrefix(protocolMapperModel);
@@ -96,7 +96,7 @@ public class ShortUsernameMapperTest {
     @Test
     void testDomainsNotUsedAsPrefix() {
         Map<String, String> config = new HashMap<>();
-        config.put(ShortUsernameMapper2.ConfigPropertyKey.DOMAINS_NOT_USED_AS_PREFIX, "domain1.com, domain2.com");
+        config.put(ShortUsernameMapper.ConfigPropertyKey.DOMAINS_NOT_USED_AS_PREFIX, "domain1.com, domain2.com");
         when(protocolMapperModel.getConfig()).thenReturn(config);
 
         Set<String> result = mapper.domainsNotUsedAsPrefix(protocolMapperModel);
@@ -106,7 +106,7 @@ public class ShortUsernameMapperTest {
     @Test
     void testDomainsNotUsedAsPrefix_NullConfig() {
         Map<String, String> config = new HashMap<>();
-        config.put(ShortUsernameMapper2.ConfigPropertyKey.DOMAINS_NOT_USED_AS_PREFIX, null);
+        config.put(ShortUsernameMapper.ConfigPropertyKey.DOMAINS_NOT_USED_AS_PREFIX, null);
         when(protocolMapperModel.getConfig()).thenReturn(config);
 
         Set<String> result = mapper.domainsNotUsedAsPrefix(protocolMapperModel);
@@ -116,7 +116,7 @@ public class ShortUsernameMapperTest {
     @Test
     void testDomainsNotUsedAsPrefix_EmptyConfig() {
         Map<String, String> config = new HashMap<>();
-        config.put(ShortUsernameMapper2.ConfigPropertyKey.DOMAINS_NOT_USED_AS_PREFIX, "");
+        config.put(ShortUsernameMapper.ConfigPropertyKey.DOMAINS_NOT_USED_AS_PREFIX, "");
         when(protocolMapperModel.getConfig()).thenReturn(config);
 
         Set<String> result = mapper.domainsNotUsedAsPrefix(protocolMapperModel);
@@ -126,7 +126,7 @@ public class ShortUsernameMapperTest {
     @Test
     void testDomainsNotUsedAsPrefix_BlankConfig() {
         Map<String, String> config = new HashMap<>();
-        config.put(ShortUsernameMapper2.ConfigPropertyKey.DOMAINS_NOT_USED_AS_PREFIX, " ");
+        config.put(ShortUsernameMapper.ConfigPropertyKey.DOMAINS_NOT_USED_AS_PREFIX, " ");
         when(protocolMapperModel.getConfig()).thenReturn(config);
 
         Set<String> result = mapper.domainsNotUsedAsPrefix(protocolMapperModel);

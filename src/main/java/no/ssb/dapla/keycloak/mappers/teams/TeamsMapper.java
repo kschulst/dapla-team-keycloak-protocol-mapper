@@ -57,7 +57,7 @@ public class TeamsMapper extends AbstractTokenMapper {
 
     @Override
     protected String helpText() {
-        return "Retrieve the user's Dapla teams from Dapla Team API and add claim";
+        return "Adds a 'teams' claim, retrieved from Dapla Team API";
     }
 
     @Override
